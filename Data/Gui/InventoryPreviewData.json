@@ -1,0 +1,40 @@
+{
+  // Lift
+  "5cc12f03-275e-4c8e-b013-79fc0f913e1b": {
+    "preview_scale": 1.61,
+    "preview_offset": { "x": 0.0, "y": 0.01, "z": 0.1 }
+  },
+  "5cc12f03-275e-4c8e-b013-79fc0f913e1c": {
+    "preview_scale": 1.61,
+    "preview_offset": {
+      "x": 0.0,
+      "y": 0.01,
+      "z": 0.1
+    }
+  },
+  // Sledgehammer
+  "ed185725-ea12-43fc-9cd7-4295d0dbf88b": {
+    "preview_scale": 1.43,
+    "preview_offset": { "x": 0.0, "y": -0.05, "z": 0.2 }
+  },
+  // Connect Tool
+  "8c7efc37-cd7c-4262-976e-39585f8527bf": {
+    "preview_scale": 1.54,
+    "preview_offset": { "x": 0.0, "y": -0.1, "z": 0.75 }
+  },
+  // Paint Tool
+  "c60b9627-fc2b-4319-97c5-05921cb976c6": {
+    "preview_scale": 1.85,
+    "preview_offset": { "x": 0.0, "y": 0.07, "z": -0.1 }
+  },
+  // Weld Tool
+  "fdb8b8be-96e7-4de0-85c7-d2f42e4f33ce": {
+    "preview_scale": 1.47,
+    "preview_offset": { "x": 0.0, "y": 0.04, "z": 0.15 }
+  },
+  // Handbook
+  "3384010e-bc1c-42bb-83ef-dbc78a1f9636": {
+    "preview_scale": 1.42,
+    "preview_offset": { "x": 0.0, "y": 0.02, "z": 0.0 }
+  }
+}

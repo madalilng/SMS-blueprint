@@ -1,0 +1,824 @@
+{
+  "007d6afc-59ef-4fb4-9bb7-52ab9bcfec22": {},
+  "01d2298b-6cdb-4f4f-bd73-37c76cd60ca3": {
+    "scale": 1.03
+  }, //Red valve
+  "04782466-eca1-4ed9-8502-036ea269aed9": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0.15
+    },
+    "scale": 1.36
+  }, //Wires long
+  "0535b90e-f0a8-491c-8c70-1fc81b939fb4": {
+    "offset": {
+      "x": 0,
+      "y": -0.03,
+      "z": 0.0
+    },
+    "scale": 1.09
+  },
+  "0603b36e-0bdb-4828-b90c-ff19abcdfe34": {}, //Sign stop
+  "068a89ca-504e-4782-9ede-48f710aeea73": {
+    "offset": {
+      "x": 0,
+      "y": -0.08,
+      "z": 0.0
+    },
+    "scale": 1.41
+  },
+  "07232236-22eb-4912-8774-ab185f368bb9": {
+    "scale": 1.15
+  },
+  "073f92af-f37e-4aff-96b3-d66284d5081c": {}, //Big pipe intersection
+  "08918d4d-29e6-427d-ad8c-1eafcc4af1f9": {
+    "offset": {
+      "x": 0,
+      "y": -0.1,
+      "z": 0.07000000000000001
+    },
+    "scale": 1.2
+  },
+  "09ca2713-28ee-4119-9622-e85490034758": {}, //Metal grid
+  "0a597f6d-eb45-4f93-91e5-130e19e0f1f5": {
+    "scale": 1.15
+  }, //Thin pipe short
+  "0dba257b-b907-4919-baaf-2fefe19f4e24": {
+    "scale": 1.142
+  }, //Plant container open
+  "102565a0-c864-463e-b517-72e82242eec2": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": -0.015
+    },
+    "scale": 1.119
+  }, //Controller
+  "12862001-666c-4bdd-8326-a1f43610d28b": {
+    "offset": {
+      "x": 0,
+      "y": -0.025,
+      "z": 0.0
+    },
+    "scale": 1.179
+  },
+  "1325d152-3dd1-41a1-9027-5823c5cb55c4": {
+    "scale": 1.08
+  },
+  "13ffabca-91ec-48ce-9dd6-4f6660714701": {
+    "scale": 1.24
+  }, //Sign totebot
+  "14e8f5d0-7d6a-41ab-96a1-fc34588de868": {
+    "offset": {
+      "x": 0,
+      "y": -0.08,
+      "z": 0.0
+    },
+    "scale": 1.14
+  }, //X frame
+  "15a8f24b-016a-4db6-adcc-967ee1b6c7b1": {
+    "scale": 1.1
+  }, //Totebot Bass
+  "161786c1-1290-4817-8f8b-7f80de755a06": {
+    "offset": {
+      "x": 0,
+      "y": -0.048,
+      "z": 0
+    },
+    "scale": 1.14
+  }, //Big pipe bend
+  "17153a0e-8461-442f-b172-3a899c1ae99f": {
+    "offset": {
+      "x": 0,
+      "y": -0.1,
+      "z": 0.09
+    },
+    "scale": 1.23
+  },
+  "18a38c8e-18ec-46c5-be00-cee7724401e2": {
+    "scale": 1.03
+  }, //Totebot Blip
+  "1c04327f-1de4-4b06-92a8-2c9b40e491aa": {
+    "offset": {
+      "x": 0,
+      "y": -0.048,
+      "z": 0
+    },
+    "scale": 1.167
+  }, //Button
+  "1e8d93a4-506b-470d-9ada-9c0a321e2db5": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0.27
+    },
+    "scale": 1.02
+  },
+  "1ed1d5a8-466a-4b5e-867b-0d93cd9d2dcb": {},
+  "1ef1f0e8-389c-4eb9-b4a8-784499353f14": {}, //Cone
+  "1f334b62-8955-4406-8848-91e03228c330": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0.16
+    },
+    "scale": 1.3
+  }, //Small pipe 3 way bend
+  "203fdf06-b311-49fd-933d-a1c6b671a017": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": 1.21
+  }, //Bike seat
+  "20f59114-5964-451f-bb47-820da3ebbc3b": {
+    "offset": {
+      "x": 0,
+      "y": 0.09,
+      "z": 0.05
+    },
+    "scale": 1.123
+  }, //Net fence
+  "2228cef0-f22a-4901-93c5-48e4df52caf6": {
+    "scale": 1.18
+  },
+  "295451dd-f5b2-421d-9113-b3f704d799d4": {},
+  "2ba72fca-443a-49e4-8eb2-073c4226866e": {}, //Sign skull
+  "2ccaa006-008e-4069-8de1-15668050f92e": {
+    "offset": {
+      "x": 0,
+      "y": -0.06,
+      "z": 0.0
+    },
+    "scale": 1.15
+  }, //I-beam bend
+  "31768765-5a08-499a-a7e6-7e7613363f75": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": -0.14
+    },
+    "scale": 1.189
+  }, //Wire curve
+  "33102836-a94d-4ab3-9864-3d54d32c230d": {
+    "offset": {
+      "x": 0,
+      "y": -0.04,
+      "z": 0.0
+    },
+    "scale": 1.06
+  }, //Handbook
+  "3384010e-bc1c-42bb-83ef-dbc78a1f9636": {
+    "offset": {
+      "x": 0.0,
+      "y": 0.04,
+      "z": -0.06
+    },
+    "scale": 1.11
+  }, //V frame
+  "33d5f0c1-f80c-478a-b69d-9edafe376474": {
+    "scale": 1.2
+  }, //Small pipe 4 way
+  "387095d6-5aba-45e3-abd0-098710c268f8": {
+    "scale": 1.398
+  }, //Sign arrow
+  "3878d965-de4a-4e7b-a15a-73cc032158b6": {
+    "offset": {
+      "x": 0,
+      "y": -0.07000000000000001,
+      "z": 0.0
+    },
+    "scale": 1.18
+  }, //Bike drivers seat
+  "38ee0516-abc5-4e46-9195-c763610d7ec4": {
+    "offset": {
+      "x": -0.06,
+      "y": 0.0,
+      "z": 0.13
+    },
+    "scale": 1.15
+  }, //Bath
+  "3efe715f-8745-475f-a609-5e7cbe09a8ef": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0
+    },
+    "scale": 1.0
+  }, //Sink
+  "3fa0afca-7715-459e-86fa-2a81cf3027b8": {
+    "offset": {
+      "x": 0,
+      "y": -0.06,
+      "z": -0.11
+    },
+    "scale": 1.36
+  }, //Seat
+  "42786777-c148-4e13-9bab-e460564e79c3": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0.11
+    },
+    "scale": 1.11
+  }, //Support pillar base
+  "45e5c193-8896-4687-a4b0-cf4b2da047d1": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0.02
+    },
+    "scale": 1.1
+  }, //Bearing
+  "4a1b886b-913e-4aad-b5b6-6e41b0db23a6": {
+    "offset": {
+      "x": 0.0,
+      "y": -0.5600000000000001,
+      "z": 0.0
+    },
+    "scale": 1.42
+  }, //Totebot Drum
+  "4c6e27a2-4c35-4df3-9794-5e206fef9012": {
+    "offset": {
+      "x": 0,
+      "y": -0.048,
+      "z": 0
+    },
+    "scale": 1.12
+  }, //I-beam long
+  "4c7b8096-b8ca-4341-bfe9-d31d2d5443b8": {
+    "scale": 1.18
+  }, //Pipe bend
+  "4f1c0036-389b-432e-81de-8261cb9f9d57": {
+    "offset": {
+      "x": 0,
+      "y": -0.1,
+      "z": 0.09
+    },
+    "scale": 1.23
+  }, //Small windshield
+  "50007ac9-e97d-4b32-9fd6-de919c8a34a4": {
+    "offset": {
+      "x": 0,
+      "y": -0.08,
+      "z": 0.06
+    },
+    "scale": 1.16
+  }, //Square-ish glass window
+  "53349c8d-14e8-4055-bd79-a1ab56fe876e": {
+    "offset": {
+      "x": 0,
+      "y": -0.08,
+      "z": 0.0
+    },
+    "scale": 1.11
+  },
+  "53e8478f-517f-4ea0-be9c-f4a357400cc1": {
+    "scale": 1.14
+  }, //Support beam
+  "56545d5c-556d-4cd5-9125-6e34acf37c3d": {
+    "scale": 1.1
+  }, //Small rectangular glass window
+  "57fad8e9-2aff-40c3-9d5c-8f81573b58b9": {
+    "offset": {
+      "x": 0,
+      "y": -0.1,
+      "z": 0.0
+    },
+    "scale": 1.243
+  }, //Small pipe 4 way bend
+  "5a106512-9284-40de-be68-2c186e903097": {
+    "scale": 1.359
+  }, //Lift
+  "5cc12f03-275e-4c8e-b013-79fc0f913e1b": {
+    "angle": 90,
+    "offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": 1.35
+  },
+  "5cc12f03-275e-4c8e-b013-79fc0f913e1c": {
+    "angle": 90,
+    "offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": 1.35
+  },
+  //Thruster
+  "5e96037a-a338-490a-a76f-6b4d820f8e46": {
+    "offset": {
+      "x": 0.0,
+      "y": -0.06,
+      "z": -0.06
+    },
+    "scale": 1.23
+  },
+  "5f41af56-df4c-4837-9b3c-10781335757f": {
+    /* Glass Block */
+    "offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": 1.0
+  }, //Stair ramp
+  "635eee58-9a36-437f-9e30-78dab0cbcc59": {
+    "scale": 1.03
+  },
+  "647296c4-41ef-4173-8a54-d2a1ae1e89c3": {}, //Electric engine
+  "6546c293-a5aa-4442-80d5-a2819f077746": {
+    "scale": 1.13
+  },
+  "68c2baa5-1274-4bfd-8b12-6e522123f4de": {
+    "scale": 1.39
+  }, //Warehouse light
+  "695d66c8-b937-472d-8bc2-f3d72dd92879": {
+    "offset": {
+      "x": 0,
+      "y": -0.11,
+      "z": -0.11
+    },
+    "scale": 1.23
+  },
+  "697e3b80-d3f7-4f4a-aba2-23611a45f967": {
+    "scale": 1.04
+  }, //Wheel
+  "69e362c3-32aa-4cd1-adc0-dcfc47b92c0d": {
+    "scale": 1.45
+  },
+  "6a720005-ba27-4cfc-8fb3-b1af8b9c8bd3": {
+    "scale": 1.14
+  }, //Support pillar
+  "6b78fb4b-2af9-4a01-a7c5-7e333d245adb": {
+    "scale": 1.15
+  }, //Wires short
+  "6be64f78-927b-4f61-b645-20adfbd9bfce": {
+    "offset": {
+      "x": 0,
+      "y": -0.07000000000000001,
+      "z": 0.0
+    },
+    "scale": 1.12
+  }, //Duct intersection
+  "6f0c29d3-f8c1-4314-b13d-db637ed89061": {
+    "offset": {
+      "x": 0,
+      "y": -0.02,
+      "z": 0.0
+    },
+    "scale": 1.05
+  }, //Sign construction zone
+  "70bf77d0-c9dd-4232-9e05-fbf7f49bd62c": {
+    "offset": {
+      "x": 0,
+      "y": -0.06,
+      "z": 0.0
+    },
+    "scale": 1.35
+  },
+  "749f69e0-56c9-488c-adf6-66c58531818f": {}, //Large rectangular glass window
+  "763fd838-7ed5-420e-8984-c2ae86da1e5c": {
+    "offset": {
+      "x": 0,
+      "y": -0.06,
+      "z": 0.0
+    },
+    "scale": 1.22
+  }, //Empty pot
+  "7826f497-426b-42cb-a857-0d784f3ab2f3": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": -0.06
+    },
+    "scale": 1.31
+  }, //Large windshield
+  "7a0e9041-9dd5-4cb1-b804-69ee16c45efe": {
+    "offset": {
+      "x": 0,
+      "y": -0.06,
+      "z": 0.04
+    },
+    "scale": 1.12
+  }, //Switch
+  "7cf717d7-d167-4f2d-a6e7-6b2c70aa3986": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0.27
+    }
+  },
+  "7ece2c9b-bc74-45b7-b5f1-4c6f41a03a7a": {
+    "scale": 1.03
+  }, //Small pipe bend
+  "8024db09-9147-4fe3-a747-00bc30ab724b": {
+    "offset": {
+      "x": 0,
+      "y": 0.2,
+      "z": -0.09
+    },
+    "scale": 1.167
+  },
+  "80550b05-f9eb-433c-9773-2af3beb1479d": {
+    "scale": 1.05
+  }, //Duck
+  "80bc2b9f-98a9-44e4-9cb8-d4ec7e95b40f": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0.19
+    },
+    "scale": 1.46
+  }, //Horn
+  "818f4e15-ff51-4fed-b874-723a25d62e1c": {
+    "offset": {
+      "x": 0,
+      "y": 0.07000000000000001,
+      "z": 0.2
+    },
+    "scale": 1.42
+  }, //Platform fence short
+  "8336bf8b-cde0-46a0-b995-5000cba4f27f": {
+    "scale": 1.14
+  }, //Platform fence long
+  "85379fe5-da83-4aa2-b9c2-d67476ad6079": {
+    "scale": 1.22
+  },
+  "862f6857-3050-4a84-8191-6a7cbb50bd1a": {
+    "scale": 1.21
+  },
+  "87878e83-8170-4796-9401-6baba45ccef2": {},
+  "885ab381-007d-4a60-99e3-c58dec54c880": {}, //Succulent plant
+  "89f6c762-c0ed-44ad-b3f1-a60dbdd889c5": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": -0.037
+    },
+    "scale": 1.52
+  },
+  "8aedf6c2-94e1-4506-89d4-a0227c552f1e": {},
+  "8b684022-254b-41af-a58c-ec4b14791000": {},
+  "8bcc5a38-b566-45fe-b47e-45118ee70d2d": {},
+  "8c4b9721-3de4-4ae3-a7d1-6f66a16d1368": {
+    "scale": 1.07
+  }, //Connect tool
+  "8c7efc37-cd7c-4262-976e-39585f8527bf": {
+    "angle": 90,
+    "offset": {
+      "x": 0,
+      "y": 0.15,
+      "z": -0.28
+    },
+    "scale": 1.87
+  },
+  "8ca49bff-eeef-4b43-abd0-b527a567f1b7": {},
+  "8d7be7bf-37c9-44d6-8adf-fc87b141cadf": {}, //Timer
+  "8f7fd0e7-c46e-4944-a414-7ce2437bb30f": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0
+    },
+    "scale": 1.03
+  },
+  "903b0823-4ce1-48e6-9702-aeaa7598c347": {}, //Thin pipe long
+  "927d80d8-84ee-44f0-9d8b-cb7a688e0b6c": {
+    "scale": 1.26
+  }, //Sign caution
+  "99b7fd1d-7126-4928-bfc2-f82befcbd905": {
+    "offset": {
+      "x": 0,
+      "y": -0.08,
+      "z": 0.0
+    },
+    "scale": 1.22
+  }, //Small pipe 6 way
+  "9c6d8dba-1783-4c42-8a02-6af1c5d63ec6": {
+    "scale": 1.615
+  }, //Bed
+  "9eead4cf-4743-486e-99be-a553c4c10740": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0.01
+    },
+    "scale": 1.05
+  }, //Logic Gate
+  "9f0f56e8-2c31-4d83-996c-d00a9b296c3f": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0
+    },
+    "scale": 1.04
+  }, //Pipe intersection
+  "9f37d9e9-be8d-49c8-a7ac-e59c67786083": {
+    "offset": {
+      "x": 0,
+      "y": -0.09,
+      "z": 0.07000000000000001
+    },
+    "scale": 1.201
+  }, //Totebot Synth
+  "a052e116-f273-4d73-872c-924a97b86720": {
+    "offset": {
+      "x": 0,
+      "y": -0.048,
+      "z": 0
+    },
+    "scale": 1.111
+  }, //Off-road suspension
+  "a481138b-fae9-47c9-9bc2-91b6d2e2bf52": {
+    "offset": {
+      "x": 0.0,
+      "y": -0.01,
+      "z": 0.0
+    },
+    "scale": 1.25
+  }, //Sign danger
+  "a5198434-2639-4cb0-8e01-865bc4d9b791": {
+    "offset": {
+      "x": 0,
+      "y": -0.06,
+      "z": 0.0
+    },
+    "scale": 1.35
+  },
+  "a6c6ce30-dd47-4587-b475-085d55c6a3b4": {}, //Mug
+  "a6ec1dcc-07e9-418a-819e-904e28a32f63": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "scale": 1.0
+  },
+  "a8164438-65fa-4840-8bc2-766fad543841": {
+    "scale": 1.1
+  }, //Pillar
+  "aa5325da-03f9-46cc-9655-983ee7ac2ab2": {
+    "scale": 1.05
+  }, //Sport suspension
+  "aa8d89eb-919b-42f4-8b58-af6f0d5856bc": {
+    "scale": 1.25
+  }, //Sensor
+  "add3acc6-a6fd-44e8-a384-a7a16ce13c81": {
+    "offset": {
+      "x": 0,
+      "y": -0.02,
+      "z": -0.06
+    },
+    "scale": 1.13
+  },
+  "b050533f-200b-4253-9532-c2cfa273f982": {}, //Sign do not enter
+  "b4498227-6650-4e52-b5a6-6db7a7b34d14": {
+    "offset": {
+      "x": 0,
+      "y": -0.06,
+      "z": 0.0
+    },
+    "scale": 1.15
+  }, //Stair railing
+  "b50a014c-0785-4b1b-b63e-51cfdb7e49ad": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0.04
+    },
+    "scale": 1.14
+  },
+  "b9775316-7272-4a66-a8a9-179108d76f18": {}, //Blue flower
+  "bb443a05-b5b9-4fad-90fc-5e04aa90fd8f": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0.12
+    },
+    "scale": 1.37
+  },
+  "bbc5cc77-443d-4aa7-a175-ebdeb09c2df3": {
+    "scale": 1.21
+  }, //Cactus
+  "bc575e0c-d1aa-438e-9f3d-0a80f4ea915f": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0.2
+    },
+    "scale": 1.45
+  },
+  "c3990931-b471-4e89-beb5-0baaef47f0af": {
+    "scale": 1.03
+  },
+  "c40683f3-d9ce-4067-af24-3514c1867a1a": {}, //Seed plant
+  "c4609540-bc32-4c3f-83b8-3b6926878012": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": -0.34
+    },
+    "scale": 1.28
+  }, //Screw
+  "c5e56da5-bc3f-4519-91c2-b307d36e15aa": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0.48
+    },
+    "scale": 1.356
+  }, //Paint tool
+  "c60b9627-fc2b-4319-97c5-05921cb976c6": {
+    "angle": -90,
+    "offset": {
+      "x": 0.0,
+      "y": -0.045,
+      "z": 0.08
+    },
+    "scale": 1.52
+  }, //Small pipe 5 way
+  "c6ebae46-8e69-4ddd-a3c0-895d887027bd": {
+    "scale": 1.492
+  }, //Sign falling objects
+  "c79a1857-a5c7-4616-b507-f1b151c31fe8": {
+    "offset": {
+      "x": 0,
+      "y": -0.04,
+      "z": 0.0
+    },
+    "scale": 1.136
+  }, //Boot
+  "c89f7bc8-5720-474d-989d-761916a411b2": {
+    "offset": {
+      "x": 0,
+      "y": -0.019,
+      "z": 0.025
+    },
+    "scale": 1.17
+  }, //Beam shelf
+  "c8c07259-bc23-45a1-8a4c-585962274f19": {
+    "scale": 1.01
+  }, //Toilet seat
+  "ca003562-fde7-463c-969e-f8334ae54387": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0.13
+    },
+    "scale": 1.14
+  }, //Pole plant
+  "cec1d36c-b48a-43d2-9667-5e53b62dd4c5": {
+    "offset": {
+      "x": 0,
+      "y": -0.01,
+      "z": 0.05
+    },
+    "scale": 1.4
+  }, //Drivers seat
+  "cf3fdcfc-a7e5-4497-b000-ffda67dd8db7": {
+    "offset": {
+      "x": -0.03,
+      "y": -0.016,
+      "z": 0.13
+    },
+    "scale": 1.17
+  }, //Ball cactus
+  "d1421af8-6f80-4413-8099-2c6b217fb929": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0.15
+    },
+    "scale": 1.35
+  }, //Sign welcome
+  "d509a432-85f9-419f-8b02-8d58b1082f97": {
+    "offset": {
+      "x": 0,
+      "y": -0.05,
+      "z": 0.0
+    },
+    "scale": 1.19
+  }, //Platform
+  "d5da6d42-69e2-49ca-8def-3339bf9f0d35": {
+    "scale": 0.99
+  }, //Gas engine
+  "d5e36413-b3c1-4636-8447-3410c352ec7b": {
+    "scale": 1.16
+  },
+  "d71d8897-5af6-4adc-b626-50e45f931157": {
+    "scale": 1.39
+  },
+  "d97a85c5-7c0f-4bfb-9ef4-ce6ecdab9539": {}, //Big wheel
+  "db66f0b1-0c50-4b74-bdc7-771374204b1f": {
+    "scale": 1.42
+  },
+  "dbd509b5-b7cc-43cf-9a89-b3befecfe991": {
+    "scale": 1.05
+  },
+  "de467c9b-a0ab-4e20-95ae-0e5fe8140989": {
+    "scale": 1.03
+  }, //Leaf plant
+  "df3734e2-f04b-443f-b568-fe5b076646c7": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": -0.22
+    },
+    "scale": 1.45
+  },
+  "df953d9c-234f-4ac2-af5e-f0490b223e71": {}, //Radio
+  "dfefc9d7-db03-4d25-ad85-eae1d824d8c0": {
+    "offset": {
+      "x": 0,
+      "y": -0.025,
+      "z": -0.01
+    },
+    "scale": 1.22
+  },
+  "e02620a5-371b-4d63-be35-fd8a0552eba9": {}, //Small pipe 3 way
+  "e1273b8a-945b-4080-81eb-cbf79961cccb": {
+    "scale": 1.255
+  },
+  "e2a0770b-9bb9-4b3b-b9f2-994b534b79f3": {
+    "scale": 1.2
+  }, //Sledgehammer
+  "ed185725-ea12-43fc-9cd7-4295d0dbf88b": {
+    "offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -0.08
+    },
+    "scale": 1.29
+  }, //Car light
+  "ed27f5e2-cac5-4a32-a5d9-49f116acc6af": {
+    "offset": {
+      "x": 0,
+      "y": 0.021,
+      "z": -0.037
+    },
+    "scale": 1.24
+  }, //Nut
+  "edd445cc-c298-4ce3-9a58-745c1bee1bc7": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": 0.39
+    },
+    "scale": 1.43
+  },
+  "f0438bd7-6307-4991-943f-d78b04877d96": {
+    "scale": 1.05
+  }, //Wirebend convex
+  "f0713386-8c95-493d-b013-e8e53e32d1ed": {
+    "offset": {
+      "x": 0,
+      "y": -0.07000000000000001,
+      "z": 0.07000000000000001
+    },
+    "scale": 1.14
+  },
+  "f37b101c-508b-4630-9f9d-47ef1c834183": {
+    "scale": 1.27
+  }, //Star platform
+  "f5786e5d-8366-4ebf-be00-f3a4b036a77b": {
+    "scale": 1.22
+  },
+  "f6687d52-efc1-4f00-b573-bee4363ee14f": {
+    "scale": 1.03
+  },
+  "f80026c5-2019-4f87-8abd-345bd23aa156": {
+    "scale": 1.09
+  }, //Plant container closed
+  "faae6e1a-f431-49fd-b8b8-16f12139ee88": {
+    "offset": {
+      "x": 0,
+      "y": 0.0,
+      "z": -0.01
+    },
+    "scale": 1.14
+  },
+  "fbc0fbfb-803c-42dd-aace-1ae10e55a785": {}, //Weld tool
+  "fdb8b8be-96e7-4de0-85c7-d2f42e4f33ce": {
+    "angle": 90,
+    "offset": {
+      "x": 0.0,
+      "y": -0.04,
+      "z": 0.09
+    },
+    "scale": 1.24
+  }, //Pillow
+  "ff2207c1-e40b-416f-8bdd-66a9efd6d1a9": {
+    "offset": {
+      "x": 0,
+      "y": -0.01,
+      "z": 0.12
+    },
+    "scale": 1.05
+  }
+}
