@@ -18,6 +18,10 @@ function PrinterTool.server_onCreate( self )
 	end
 end
 
+function PrinterTool.sv_saveBlueprints( self )
+	sm.storage.save( STORAGE_CHANNEL_BLUEPRINTS, self.blueprints )
+end
+
 function PrinterTool.client_onCreate( self )
 	self.gui = nil
 	self.blueprintsFiles = sm.json.open( "$SURVIVAL_DATA/Scripts/game/ren/blueprints.json" )
