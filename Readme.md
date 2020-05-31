@@ -46,11 +46,7 @@ this will create chest with items from blueprint content
 
 **Extracting from Blueprint**
 
-first you need to set blueprint name
-
-using `/blueprint <name_of_blueprint>`
-
-it needs the same filename of the blueprint you want to extract
+while equipping **PrinterTool** press Q to toggle through blueprints
 
 you can find your Blueprints from `Survival/Scripts/game/ren/blueprints`
 
