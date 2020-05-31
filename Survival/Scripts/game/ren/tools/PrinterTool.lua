@@ -13,6 +13,7 @@ function PrinterTool.sv_saveBlueprints( self )
 end
 
 function PrinterTool.sv_loadBlueprints( self )
+	self.blueprints = {}
 	self.blueprints = sm.storage.load( STORAGE_CHANNEL_BLUEPRINTS )
 	if self.blueprints then
 		print( self.blueprints )
@@ -27,11 +28,20 @@ end
 
 function PrinterTool.client_onCreate( self )
 	self.gui = nil
+	self.blueprintsFiles = sm.json.open( "$SURVIVAL_DATA/Scripts/game/ren/blueprints.json" )
+	self.blueprintSelectedIndex = 1
     self.effect = sm.effect.createEffect( "ShapeRenderable" )
 	self.effect:setParameter( "uuid", sm.uuid.new("d4e6c84c-a493-44b1-81aa-4f4741ea3ee0") )
 	self.effect:setParameter( "visualization", true )
 	self.effect:setScale( sm.vec3.new( sm.construction.constants.subdivideRatio, sm.construction.constants.subdivideRatio, sm.construction.constants.subdivideRatio ) )
 	self:client_init()
+end
+
+function contains(list, x)
+	for _, v in pairs(list) do
+		if v == x then return true end
+	end
+	return false
 end
 
 function PrinterTool.client_onRefresh( self )
@@ -56,7 +66,9 @@ function PrinterTool.client_init( self )
 end
 
 function PrinterTool.client_onEquippedUpdate( self, primaryState, secondaryState, forceBuildActive )
-    if self.tool:isLocal() and self.equipped and sm.localPlayer.getPlayer():getCharacter() then
+	if self.tool:isLocal() and self.equipped and sm.localPlayer.getPlayer():getCharacter() then
+		self.tool:setInteractionTextSuppressed( true )
+		-- print(self.tool)
         if forceBuildActive then
 			if self.effect:isPlaying() then
 				self.effect:stop()
@@ -88,6 +100,7 @@ function PrinterTool.cl_no_blueprint( self )
 	sm.gui.displayAlertText( "Please set blueprint name using /blueprint <NAME_OF_BLUEPRINT>", 10 )
 end
 
+
 function PrinterTool.sv_n_put_printer( self, params, player )
 	self.blueprints = sm.storage.load( STORAGE_CHANNEL_BLUEPRINTS )
 	if self.blueprints == nil then
@@ -116,17 +129,23 @@ function PrinterTool.sv_n_put_printer( self, params, player )
 		end
 		sm.container.endTransaction()
 		sm.json.save( obj[1], "$SURVIVAL_DATA/Scripts/game/ren/blueprints/"..self.blueprints.name..".blueprint" )
+		self.blueprintsFiles[#self.blueprintsFiles+1] = self.blueprints.name
+		if contains(self.blueprintsFiles,self.blueprints.name) == false then
+			sm.json.save( self.blueprintsFiles, "$SURVIVAL_DATA/Scripts/game/ren/blueprints.json" )
+		end
 		self.blueprints.name = nil
 		self:sv_saveBlueprints()
 	end
 end
 
+function PrinterTool.cl_no_blueprintQ( self )
+	sm.gui.displayAlertText( "Please set blueprint using Q", 10 )
+end
+
+
 function PrinterTool.sv_n_spawn_blueprint( self, params, player )
-	self.blueprints = sm.storage.load( STORAGE_CHANNEL_BLUEPRINTS )
-	if self.blueprints == nil then
-		self.network:sendToClients( "cl_no_blueprint" )
-	elseif self.blueprints.name == nil  then
-		self.network:sendToClients( "cl_no_blueprint" )
+	if self.blueprintsFiles[self.blueprintSelectedIndex] == "" then
+		self.network:sendToClients( "cl_no_blueprintQ" )
 	else
 		local containerContent = getContainerContents(params.container:getInteractable():getContainer())
 		local obj = {}
@@ -134,7 +153,7 @@ function PrinterTool.sv_n_spawn_blueprint( self, params, player )
 		local buildable = true
 
 
-		obj[#obj+1] = sm.json.open( "$SURVIVAL_DATA/Scripts/game/ren/blueprints/"..self.blueprints.name..".blueprint" )
+		obj[#obj+1] = sm.json.open( "$SURVIVAL_DATA/Scripts/game/ren/blueprints/".. self.blueprintsFiles[self.blueprintSelectedIndex] ..".blueprint" )
 		usedShapes = getCreationsShapeCount( obj )
 
 		for shapeID in pairs(usedShapes) do
@@ -157,7 +176,7 @@ function PrinterTool.sv_n_spawn_blueprint( self, params, player )
 		end
 
 		if buildable == true then
-			sm.creation.importFromFile( player.character:getWorld(), "$SURVIVAL_DATA/Scripts/game/ren/blueprints/"..self.blueprints.name..".blueprint", params.container.worldPosition )
+			sm.creation.importFromFile( player.character:getWorld(), "$SURVIVAL_DATA/Scripts/game/ren/blueprints/"..self.blueprintsFiles[self.blueprintSelectedIndex]..".blueprint", params.container.worldPosition )
 			params.container:destroyShape()
 			self.blueprints.name = nil
 			self:sv_saveBlueprints()
@@ -232,7 +251,9 @@ function PrinterTool.client_interact( self, primaryState, secondaryState, raycas
 				-- container ren
 				if shape.shapeUuid == obj_ren_container then
 					self.selectedContainer = shape
-					sm.gui.setInteractionText( "", sm.gui.getKeyBinding( "Create" ), "Extract Blueprint" )
+					sm.gui.setInteractionText( "", sm.gui.getKeyBinding( "Create" ), "Extract Blueprint : "..self.blueprintsFiles[self.blueprintSelectedIndex] )
+					local keyBindingText =  sm.gui.getKeyBinding( "Use" )
+					sm.gui.setInteractionText( "", keyBindingText, "Press Q to toggle through Blueprints" )
 					break
 				end
 			end
@@ -329,7 +350,6 @@ function PrinterTool.client_interact( self, primaryState, secondaryState, raycas
 			sm.visualization.setCreationFreePlacementPosition( self.liftPos * 0.25 + sm.vec3.new(0,0,0.5) + sm.vec3.new(0,0,0.25) * liftLevel )
 			sm.visualization.setCreationFreePlacementRotation( self.rotationIndex )
 			sm.visualization.setCreationVisible( true )
-			
 			sm.gui.setInteractionText( "", sm.gui.getKeyBinding( "Create" ), "#{INTERACTION_PLACE_LIFT_ON_GROUND}" )
 		elseif #self.hoverBodies > 0 then
 			sm.visualization.setCreationBodies( self.hoverBodies )
@@ -342,30 +362,26 @@ function PrinterTool.client_interact( self, primaryState, secondaryState, raycas
 				sm.gui.setInteractionText( "", sm.gui.getKeyBinding( "Create" ), "Place 3d Printer" )
 		end
 	else
-		-- sm.visualization.setCreationVisible( true )
 	end
 end
 
 function PrinterTool.client_onToggle( self, backwards )
-	
-	local nextRotationIndex = self.rotationIndex
-	if backwards then
-		nextRotationIndex = nextRotationIndex - 1
+	self.blueprintsFiles = sm.json.open( "$SURVIVAL_DATA/Scripts/game/ren/blueprints.json" )
+	if self.blueprintSelectedIndex >= #self.blueprintsFiles then
+		self.blueprintSelectedIndex = 1
 	else
-		nextRotationIndex = nextRotationIndex + 1
+		self.blueprintSelectedIndex = self.blueprintSelectedIndex + 1
 	end
-	if nextRotationIndex == 4 then
-		nextRotationIndex = 0
-	elseif nextRotationIndex == -1 then
-		nextRotationIndex = 3
-	end
-	self.rotationIndex = nextRotationIndex
+	sm.gui.displayAlertText( self.blueprintsFiles[self.blueprintSelectedIndex], 2 )
+	
+
 
 	return true
 end
 
 function PrinterTool.client_onEquip( self )
 	self.equipped = true
+	print(self.blueprints)
 	self:client_init()
 end
 
@@ -387,7 +403,6 @@ end
 function PrinterTool.client_onForceTool( self, bodies )
 	self.equipped = true
     self.importBodies = bodies
-    print(importBodies)
 	self.forced = true
 end
 
@@ -435,9 +450,7 @@ function getContainerContents( container )
 	local content = {}
 	for i=0,container:getSize()-1 do 
 		local item = container:getItem(i)
-		if item.uuid == sm.uuid.new("00000000-0000-0000-0000-000000000000") then
-			
-		else
+		if item.uuid ~= sm.uuid.new() then
 			if content[ tostring( item.uuid ) ] == nil then
 				content[ tostring( item.uuid ) ] = 0
 			end
