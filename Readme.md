@@ -1,14 +1,14 @@
-###Scrap Mechanic Blueprint Tool
+# Scrap Mechanic Blueprint Tool
 
 by ren (github.com/madalilng/)
 
-##First, a quick statement and disclaimer
+# First, a quick statement and disclaimer
 
 **use at your own risk**
 
 **this build is beta and i'm trying my best to improve this mod**
 
-###Installation
+### Installation
 
 > BACKUP DATA AND SURVIVAL FOLDERBACKUP DATA AND SURVIVAL FOLDER
 
