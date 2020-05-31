@@ -4,9 +4,31 @@ dofile "$SURVIVAL_DATA/Scripts/game/survival_shapes.lua"
 
 PrinterTool = class()
 
+function PrinterTool.server_onCreate( self )
+	self.sv_loadBlueprints();
+end
+
+function PrinterTool.sv_saveBlueprints( self )
+	sm.storage.save( STORAGE_CHANNEL_BLUEPRINTS, self.blueprints )
+end
+
+function PrinterTool.sv_loadBlueprints( self )
+	self.blueprints = sm.storage.load( STORAGE_CHANNEL_BLUEPRINTS )
+	if self.blueprints then
+		print( self.blueprints )
+	else
+		self.blueprints = {
+			name = nil
+		}
+		print( self.blueprints )
+		self:sv_saveBlueprints()
+	end
+end
+
 function PrinterTool.client_onCreate( self )
+	self.gui = nil
     self.effect = sm.effect.createEffect( "ShapeRenderable" )
-	self.effect:setParameter( "uuid", sm.uuid.new("d4e6c84c-a493-44b1-81aa-4f4741ea3ed8") )
+	self.effect:setParameter( "uuid", sm.uuid.new("d4e6c84c-a493-44b1-81aa-4f4741ea3ee0") )
 	self.effect:setParameter( "visualization", true )
 	self.effect:setScale( sm.vec3.new( sm.construction.constants.subdivideRatio, sm.construction.constants.subdivideRatio, sm.construction.constants.subdivideRatio ) )
 	self:client_init()
@@ -28,7 +50,9 @@ function PrinterTool.client_init( self )
 	self.liftPos = sm.vec3.new( 0, 0, 0 )
 	self.hoverBodies = {}
 	self.selectedBodies = {}
+	self.blueprintBodies = {}
 	self.rotationIndex = 0
+	self.selectedContainer = nil
 end
 
 function PrinterTool.client_onEquippedUpdate( self, primaryState, secondaryState, forceBuildActive )
@@ -48,33 +72,100 @@ function PrinterTool.client_onEquippedUpdate( self, primaryState, secondaryState
 			if not self.effect:isPlaying() then
 				self.effect:start()
 			end
-            if primaryState == sm.tool.interactState.start then
-				self.network:sendToServer( "sv_n_put_printer", { pos = worldPos, slot = sm.localPlayer.getSelectedHotbarSlot() } )
+			if primaryState == sm.tool.interactState.start then
+				self.network:sendToServer( "sv_n_put_printer", { pos = worldPos } )
 			end
 			return true, false
 		else
 			self.effect:stop()
 			return false, false
         end
-        
-		
 	end
 	return true, false
 end
 
+function PrinterTool.cl_no_blueprint( self )
+	sm.gui.displayAlertText( "Please set blueprint name using /blueprint <NAME_OF_BLUEPRINT>", 10 )
+end
 
 function PrinterTool.sv_n_put_printer( self, params, player )
-	local obj = sm.json.parseJsonString( sm.creation.exportToString( self.targetBody ) )
-	for _, body in ipairs( self.targetBody:getCreationBodies() ) do
-		for _, shape in ipairs( body:getShapes() ) do
-			shape:destroyShape()
+	self.blueprints = sm.storage.load( STORAGE_CHANNEL_BLUEPRINTS )
+	if self.blueprints == nil then
+		self.network:sendToClients( "cl_no_blueprint" )
+	elseif self.blueprints.name == nil  then
+		self.network:sendToClients( "cl_no_blueprint" )
+	else
+		local obj = {}
+		obj[#obj+1] = sm.json.parseJsonString( sm.creation.exportToString( self.targetBody, true ) )
+
+		local usedShapes = {}
+		usedShapes = getCreationsShapeCount( obj )
+		for _, body in ipairs( self.targetBody:getCreationBodies() ) do
+			for _, shape in ipairs( body:getShapes() ) do
+				shape:destroyShape()
+			end
 		end
+		local rot = math.random( 0, 3 ) * math.pi * 0.5
+		local shape = sm.shape.createPart( obj_ren_container, params.pos, sm.quat.angleAxis( rot, sm.vec3.new( 0, 0, 1 ) ) * sm.quat.new( 0.70710678, 0, 0, 0.70710678 ) , false, false )
+		local container = shape:getInteractable():getContainer()
+		local index = 0
+		sm.container.beginTransaction()
+		for shape in pairs( usedShapes ) do
+			sm.container.collect( container, sm.uuid.new( shape ), usedShapes[shape], false )
+			index = index + 1
+		end
+		sm.container.endTransaction()
+		sm.json.save( obj[1], "$SURVIVAL_DATA/Scripts/game/ren/blueprints/"..self.blueprints.name..".blueprint" )
+		self.blueprints.name = nil
+		self:sv_saveBlueprints()
 	end
-	local rot = math.random( 0, 3 ) * math.pi * 0.5
-	local part = sm.shape.createPart( obj_ren_printer, params.pos, sm.quat.angleAxis( rot, sm.vec3.new( 0, 0, 1 ) ) * sm.quat.new( 0.70710678, 0, 0, 0.70710678 ) , false, false )
-	sm.json.save( obj, "$SURVIVAL_DATA/Scripts/game/ren/blueprints/"..part.id..".blueprint" )
-	sm.effect.playEffect( "Plants - SoilbagUse", params.pos, nil, sm.quat.angleAxis( rot, sm.vec3.new( 0, 0, 1 ) ) * sm.quat.new( 0.70710678, 0, 0, 0.70710678 ) )
 end
+
+function PrinterTool.sv_n_spawn_blueprint( self, params, player )
+	self.blueprints = sm.storage.load( STORAGE_CHANNEL_BLUEPRINTS )
+	if self.blueprints == nil then
+		self.network:sendToClients( "cl_no_blueprint" )
+	elseif self.blueprints.name == nil  then
+		self.network:sendToClients( "cl_no_blueprint" )
+	else
+		local containerContent = getContainerContents(params.container:getInteractable():getContainer())
+		local obj = {}
+		local usedShapes = {}
+		local buildable = true
+
+
+		obj[#obj+1] = sm.json.open( "$SURVIVAL_DATA/Scripts/game/ren/blueprints/"..self.blueprints.name..".blueprint" )
+		usedShapes = getCreationsShapeCount( obj )
+
+		for shapeID in pairs(usedShapes) do
+			local uid = sm.uuid.new( shapeID )
+			local item_name = sm.shape.getShapeTitle( uid )
+
+			if containerContent[shapeID] then
+				if usedShapes[shapeID] > containerContent[shapeID] then
+					local qty = usedShapes[shapeID] - containerContent[shapeID]
+					if qty > 0 then
+						print("Could not consume enough of ", item_name, " Needed ", qty, " more")
+						sm.gui.chatMessage("#7eddde Need "..item_name .. " x " .. qty)
+						buildable = false
+					end
+				end
+			else
+				sm.gui.chatMessage("#7eddde Need "..item_name .. " x " .. usedShapes[shapeID])
+				buildable = false
+			end
+		end
+
+		if buildable == true then
+			sm.creation.importFromFile( player.character:getWorld(), "$SURVIVAL_DATA/Scripts/game/ren/blueprints/"..self.blueprints.name..".blueprint", params.container.worldPosition )
+			params.container:destroyShape()
+			self.blueprints.name = nil
+			self:sv_saveBlueprints()
+		end
+		
+	end
+end
+
 
 function PrinterTool.constructionRayCast( self )
 
@@ -116,7 +207,7 @@ end
 
 function PrinterTool.client_interact( self, primaryState, secondaryState, raycastResult )
 	local targetBody = nil
-
+	self.selectedContainer = nil
 	if self.importBodies then
 		self.selectedBodies = self.importBodies
 		self.importBodies = nil
@@ -126,7 +217,7 @@ function PrinterTool.client_interact( self, primaryState, secondaryState, raycas
 	if secondaryState ~= sm.tool.interactState.null then
 		self.hoverBodies = {}
 		self.selectedBodies = {}
-
+		self.selectedContainer = nil
 		sm.tool.forceTool( nil )
 		self.forced = false
 	end
@@ -137,10 +228,19 @@ function PrinterTool.client_interact( self, primaryState, secondaryState, raycas
 			targetBody = raycastResult:getJoint().shapeA.body
 		elseif raycastResult.type == "body" then
 			targetBody = raycastResult:getBody()
+			for _, shape in ipairs( targetBody:getShapes() ) do
+				-- container ren
+				if shape.shapeUuid == obj_ren_container then
+					self.selectedContainer = shape
+					sm.gui.setInteractionText( "", sm.gui.getKeyBinding( "Create" ), "Extract Blueprint" )
+					break
+				end
+			end
 		end
 		
 		local liftPos = raycastResult.pointWorld * 4
 		self.liftPos = sm.vec3.new( math.floor( liftPos.x + 0.5 ), math.floor( liftPos.y + 0.5 ), math.floor( liftPos.z + 0.5 ) )
+
 	end
 	
 	local isSelectable = false
@@ -202,7 +302,9 @@ function PrinterTool.client_interact( self, primaryState, secondaryState, raycas
 
 	--Pickup
 	if primaryState == sm.tool.interactState.start then
-
+		if self.selectedContainer and self.selectedContainer.shapeUuid == obj_ren_container then
+			self.network:sendToServer( "sv_n_spawn_blueprint", { container = self.selectedContainer } )
+		end
 		if isSelectable and #self.selectedBodies == 0 then
 			self.targetBody = targetBody
 			self.selectedBodies = self.hoverBodies
@@ -213,21 +315,31 @@ function PrinterTool.client_interact( self, primaryState, secondaryState, raycas
 	end
 
 	--Visualization
-	-- sm.visualization.setCreationValid( isPlaceable )
-	-- sm.visualization.setLiftValid( isPlaceable )
+	sm.visualization.setCreationValid( isPlaceable )
+	sm.visualization.setLiftValid( isPlaceable )
 
 	if raycastResult.valid then
-		if #self.hoverBodies > 0 then
+		local showLift = #self.hoverBodies == 0
+		if #self.blueprintBodies > 0 then
+			sm.visualization.setLiftPosition( self.liftPos * 0.25 )
+			sm.visualization.setLiftLevel( liftLevel )
+			sm.visualization.setLiftVisible( showLift )
+			sm.visualization.setCreationBodies( self.blueprintBodies )
+			sm.visualization.setCreationFreePlacement( true )
+			sm.visualization.setCreationFreePlacementPosition( self.liftPos * 0.25 + sm.vec3.new(0,0,0.5) + sm.vec3.new(0,0,0.25) * liftLevel )
+			sm.visualization.setCreationFreePlacementRotation( self.rotationIndex )
+			sm.visualization.setCreationVisible( true )
+			
+			sm.gui.setInteractionText( "", sm.gui.getKeyBinding( "Create" ), "#{INTERACTION_PLACE_LIFT_ON_GROUND}" )
+		elseif #self.hoverBodies > 0 then
 			sm.visualization.setCreationBodies( self.hoverBodies )
 			sm.visualization.setCreationFreePlacement( false )		
 			sm.visualization.setCreationValid( true )
 			sm.visualization.setLiftValid( true )
 			sm.visualization.setCreationVisible( true )
-			sm.gui.setInteractionText( "", sm.gui.getKeyBinding( "Create" ), "Create BluePrint" )
-        else
-			if isPlaceable and #self.selectedBodies > 0 then
+			sm.gui.setInteractionText( "", sm.gui.getKeyBinding( "Create" ), "Create Blueprint" )
+        elseif isPlaceable and #self.selectedBodies > 0 then
 				sm.gui.setInteractionText( "", sm.gui.getKeyBinding( "Create" ), "Place 3d Printer" )
-			end
 		end
 	else
 		-- sm.visualization.setCreationVisible( true )
@@ -254,13 +366,21 @@ end
 
 function PrinterTool.client_onEquip( self )
 	self.equipped = true
-    self:client_init()
-    print("equipped printer tool")
+	self:client_init()
 end
 
 function PrinterTool.client_onUnequip( self )
     self.equipped = false
-    self.effect:stop()
+	self.effect:stop()
+	sm.visualization.setCreationVisible( false )
+	sm.visualization.setLiftVisible( false )
+	if self.gui then
+		
+		self.gui = nil
+		-- self.gui:destroy()
+	end
+
+	
 	sm.visualization.setCreationVisible( false )
 end
 
@@ -269,4 +389,61 @@ function PrinterTool.client_onForceTool( self, bodies )
     self.importBodies = bodies
     print(importBodies)
 	self.forced = true
+end
+
+
+function getCreationsShapeCount( creations )
+	local usedShapes = {}
+	for _, blueprintObject in ipairs( creations ) do
+
+		-- Count joints used in the blueprint
+		if blueprintObject.joints then
+			for _, joint in ipairs( blueprintObject.joints ) do
+				if usedShapes[joint.shapeId] == nil then
+					usedShapes[joint.shapeId] = 0
+				end
+				usedShapes[joint.shapeId] = usedShapes[joint.shapeId] + 1
+			end
+		end
+		
+		-- Count parts and blocks used in the blueprint
+		if blueprintObject.bodies then
+			for _, body in ipairs( blueprintObject.bodies ) do
+				if body.childs then
+					for _, child in ipairs( body.childs ) do
+						if child.bounds then
+							if usedShapes[child.shapeId] == nil then
+								usedShapes[child.shapeId] = 0
+							end
+							usedShapes[child.shapeId] = usedShapes[child.shapeId] + child.bounds.x * child.bounds.y * child.bounds.z
+						else
+							if usedShapes[child.shapeId] == nil then
+								usedShapes[child.shapeId] = 0
+							end
+							usedShapes[child.shapeId] = usedShapes[child.shapeId] + 1
+						end									
+					end
+				end
+			end
+		end
+	end
+	
+	return usedShapes
+end
+
+function getContainerContents( container )
+	local content = {}
+	for i=0,container:getSize()-1 do 
+		local item = container:getItem(i)
+		if item.uuid == sm.uuid.new("00000000-0000-0000-0000-000000000000") then
+			
+		else
+			if content[ tostring( item.uuid ) ] == nil then
+				content[ tostring( item.uuid ) ] = 0
+			end
+			content[ tostring( item.uuid ) ] = content[ tostring( item.uuid ) ] + item.quantity
+		end
+	end
+
+	return content
 end

@@ -1025,6 +1025,9 @@
             <Index name="43c0ca80-0980-433a-88a3-929727a62a6d">
                 <Frame point="288 1536"/>
             </Index>
+            <Index name="d4e6c84c-a493-44b1-81aa-4f4741ea3ee0">
+                <Frame point="288 1536"/>
+            </Index>
             <Index name="94acfb72-c650-4cb5-a8aa-08af3e691d2e">
                 <Frame point="384 1536"/>
             </Index>
@@ -1301,8 +1304,8 @@
             <Index name="5cc12f03-275e-4c8e-b013-79fc0f913e1b">
                 <Frame point="1056 1920"/>
             </Index>
-            <Index name="5cc12f03-275e-4c8e-b013-79fc0f913e1c">
-                <Frame point="1152 1920"/>
+            <Index name="7700c1f2-a33a-11ea-bb37-0242ac130002">
+                <Frame point="1056 1920"/>
             </Index>
             <Index name="ed185725-ea12-43fc-9cd7-4295d0dbf88b">
                 <Frame point="1152 1920"/>

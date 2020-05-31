@@ -1,55 +1,29 @@
 {
   "partList": [
     {
-      "uuid": "d4e6c84c-a493-44b1-81aa-4f4741ea3ed9",
-      "name": "obj_ren_printer",
-      "renderable": {
-        "lodList": [
-          {
-            "subMeshList": [
-              {
-                "textureList": [
-                  "$SURVIVAL_DATA/Objects/Textures/spaceship/obj_spaceship_microwave_dif.tga",
-                  "$SURVIVAL_DATA/Objects/Textures/spaceship/obj_spaceship_microwave_asg.tga",
-                  "$SURVIVAL_DATA/Objects/Textures/spaceship/obj_spaceship_microwave_nor.tga"
-                ],
-                "material": "DifAsgNor"
-              }
-            ],
-            "mesh": "$SURVIVAL_DATA/Objects/Mesh/spaceship/obj_spaceship_microwave.mesh"
-          }
-        ]
-      },
+      "uuid": "d4e6c84c-a493-44b1-81aa-4f4741ea3ee0",
+      "name": "obj_ren_container",
+      "renderable": "$SURVIVAL_DATA/Objects/Renderable/interactive/obj_interactive_smallchest.rend",
       "color": "000000",
       "box": {
-        "x": 2,
+        "x": 3,
         "y": 2,
-        "z": 2
+        "z": 3
       },
-      "scripted": {
-        "filename": "$SURVIVAL_DATA/Scripts/game/ren/tools/Printer.lua",
-        "classname": "Printer",
-        "data": {}
+      "chest": {
+        "slots": 200
       },
-      "rotationSet": "PropFullMinusNegY",
-      "sticky": "-X+X-Y-Z+Z",
-      "physicsMaterial": "Metal",
+      "rotationSet": "PropY",
+      "sticky": "-Y",
+      "physicsMaterial": "Mechanical",
       "ratings": {
-        "density": 5,
-        "durability": 2,
-        "friction": 4,
-        "buoyancy": 2
+        "density": 8,
+        "durability": 6,
+        "friction": 5,
+        "buoyancy": 8
       },
       "flammable": false,
-      "density": 250.0,
-      "restrictions": {
-        "destructable": false,
-        "erasable": false,
-        "buildable": false,
-        "convertibleToDynamic": false,
-        "liftable": false,
-        "paintable": false
-      }
+      "density": 250.0
     }
   ]
 }

@@ -4,7 +4,8 @@
     "preview_scale": 1.61,
     "preview_offset": { "x": 0.0, "y": 0.01, "z": 0.1 }
   },
-  "5cc12f03-275e-4c8e-b013-79fc0f913e1c": {
+  // Printer Tool {
+  "7700c1f2-a33a-11ea-bb37-0242ac130002": {
     "preview_scale": 1.61,
     "preview_offset": {
       "x": 0.0,
