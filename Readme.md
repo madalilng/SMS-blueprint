@@ -6,6 +6,8 @@ by ren (github.com/madalilng/)
 
 **use at your own risk**
 
+**this will conflict with other existing mods so do check if conflicts some files**
+
 **this build is beta and i'm trying my best to improve this mod**
 
 ### Installation
