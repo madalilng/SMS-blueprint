@@ -2,7 +2,7 @@
 
 by ren (github.com/madalilng/)
 
-# First, a quick statement and disclaimer
+## First, a quick statement and disclaimer
 
 **use at your own risk**
 
@@ -20,7 +20,9 @@ make a copy of your data and survival folder for easy reversible if you want to 
 
 Copy and Paste the Data and Survival folders from this .rar file into your base Scrap Mechanic Folder.
 
-###Mod Content
+### Mod Content
+
 added new tool **PrinterTool**
+
 added new object **container** with 200 slots
 
