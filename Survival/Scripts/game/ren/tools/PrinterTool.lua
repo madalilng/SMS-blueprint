@@ -5,14 +5,6 @@ dofile "$SURVIVAL_DATA/Scripts/game/survival_shapes.lua"
 PrinterTool = class()
 
 function PrinterTool.server_onCreate( self )
-	self.sv_loadBlueprints();
-end
-
-function PrinterTool.sv_saveBlueprints( self )
-	sm.storage.save( STORAGE_CHANNEL_BLUEPRINTS, self.blueprints )
-end
-
-function PrinterTool.sv_loadBlueprints( self )
 	self.blueprints = {}
 	self.blueprints = sm.storage.load( STORAGE_CHANNEL_BLUEPRINTS )
 	if self.blueprints then
@@ -31,7 +23,7 @@ function PrinterTool.client_onCreate( self )
 	self.blueprintsFiles = sm.json.open( "$SURVIVAL_DATA/Scripts/game/ren/blueprints.json" )
 	self.blueprintSelectedIndex = 1
     self.effect = sm.effect.createEffect( "ShapeRenderable" )
-	self.effect:setParameter( "uuid", sm.uuid.new("d4e6c84c-a493-44b1-81aa-4f4741ea3ee0") )
+	self.effect:setParameter( "uuid", sm.uuid.new("fcfae5e2-1df9-47d8-bb9a-30bec9b5b1f5") )
 	self.effect:setParameter( "visualization", true )
 	self.effect:setScale( sm.vec3.new( sm.construction.constants.subdivideRatio, sm.construction.constants.subdivideRatio, sm.construction.constants.subdivideRatio ) )
 	self:client_init()
@@ -366,17 +358,15 @@ function contains(list, x)
 end
 
 function PrinterTool.client_onToggle( self, backwards )
-	print( contains(self.blueprintsFiles, "asd")  )
 	self.blueprintsFiles = sm.json.open( "$SURVIVAL_DATA/Scripts/game/ren/blueprints.json" )
 	if self.blueprintSelectedIndex >= #self.blueprintsFiles then
 		self.blueprintSelectedIndex = 1
 	else
 		self.blueprintSelectedIndex = self.blueprintSelectedIndex + 1
 	end
-	sm.gui.displayAlertText( self.blueprintsFiles[self.blueprintSelectedIndex], 2 )
-	
-
-
+	if self.blueprintsFiles[self.blueprintSelectedIndex] then
+		sm.gui.displayAlertText( self.blueprintsFiles[self.blueprintSelectedIndex], 2 )
+	end
 	return true
 end
 
