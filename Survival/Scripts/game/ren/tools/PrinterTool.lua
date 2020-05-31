@@ -37,13 +37,6 @@ function PrinterTool.client_onCreate( self )
 	self:client_init()
 end
 
-function contains(list, x)
-	for _, v in pairs(list) do
-		if v == x then return true end
-	end
-	return false
-end
-
 function PrinterTool.client_onRefresh( self )
     if self.tool:isLocal() then
 		self.lastSentItem = nil
@@ -129,8 +122,8 @@ function PrinterTool.sv_n_put_printer( self, params, player )
 		end
 		sm.container.endTransaction()
 		sm.json.save( obj[1], "$SURVIVAL_DATA/Scripts/game/ren/blueprints/"..self.blueprints.name..".blueprint" )
-		self.blueprintsFiles[#self.blueprintsFiles+1] = self.blueprints.name
-		if contains(self.blueprintsFiles,self.blueprints.name) == false then
+		if contains(self.blueprintsFiles, self.blueprints.name) ~= true then
+			self.blueprintsFiles[#self.blueprintsFiles+1] = self.blueprints.name
 			sm.json.save( self.blueprintsFiles, "$SURVIVAL_DATA/Scripts/game/ren/blueprints.json" )
 		end
 		self.blueprints.name = nil
@@ -365,7 +358,15 @@ function PrinterTool.client_interact( self, primaryState, secondaryState, raycas
 	end
 end
 
+function contains(list, x)
+	for v in pairs(list) do
+		if list[v] == x then return true end
+	end
+	return false
+end
+
 function PrinterTool.client_onToggle( self, backwards )
+	print( contains(self.blueprintsFiles, "asd")  )
 	self.blueprintsFiles = sm.json.open( "$SURVIVAL_DATA/Scripts/game/ren/blueprints.json" )
 	if self.blueprintSelectedIndex >= #self.blueprintsFiles then
 		self.blueprintSelectedIndex = 1
