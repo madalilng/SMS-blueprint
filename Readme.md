@@ -10,7 +10,10 @@ by ren (github.com/madalilng/)
 
 ### Installation
 
+> BACKUP YOUR SAVEFILE
 > BACKUP DATA AND SURVIVAL FOLDER
+
+
 
 In your Scrap Mechanic base folder
 make a copy of your data and survival folder for easy reversible if you want to go back to your vanilla version of scrap mechanic
