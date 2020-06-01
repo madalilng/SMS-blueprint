@@ -13,6 +13,7 @@ by ren (github.com/madalilng/)
 ### Installation
 
 > BACKUP YOUR SAVEFILE
+
 to backup your savefile hit ctrl+r (windows)
 type `%appdata%/Axolot Games` on run command got o `scrap mechanic/user/user_xxxxxx/save/survival/`
 make a copy of that save folder
