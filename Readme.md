@@ -37,6 +37,14 @@ added new object **Custom Container** with 200 slots
 
 added new character command /blueprint <name_of_blueprint>
 
+added 2 new items in crafter ( the actual tool & container )
+
+### ToDo
+- [ ] Optimize the code
+- [ ] Custom Icon for tool
+- [ ] Custom Icon for Container
+- [ ] Fix bugs some
+
 ### Usage
 
 **Create Blueprint**
