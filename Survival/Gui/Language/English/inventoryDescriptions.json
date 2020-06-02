@@ -2355,9 +2355,6 @@
   "43c0ca80-0980-433a-88a3-929727a62a6d": {
     "title": "Metal Storage Support"
   },
-  "d4e6c84c-a493-44b1-81aa-4f4741ea3ee0": {
-    "title": "obj_ren_container"
-  },
   "94acfb72-c650-4cb5-a8aa-08af3e691d2e": {
     "title": "obj_warehouse_container2"
   },
@@ -2449,5 +2446,8 @@
   "8f190ce2-3a59-423e-8483-a7aa67bd5bc0": {
     "title": "Lift",
     "description": "Build on the lift to create freely movable constructions that won't be fixed to the ground. Can be elevated and lowered as well as lift creations that have flipped over."
+  },
+    "d4e6c84c-a493-44b1-81aa-4f4741ea3ee0": {
+    "title": "Printer Container"
   }
 }

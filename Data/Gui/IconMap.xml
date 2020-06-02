@@ -1304,9 +1304,6 @@
             <Index name="5cc12f03-275e-4c8e-b013-79fc0f913e1b">
                 <Frame point="1056 1920"/>
             </Index>
-            <Index name="7700c1f2-a33a-11ea-bb37-0242ac130002">
-                <Frame point="1056 1920"/>
-            </Index>
             <Index name="ed185725-ea12-43fc-9cd7-4295d0dbf88b">
                 <Frame point="1152 1920"/>
             </Index>
@@ -1327,6 +1324,9 @@
             </Index>
             <Index name="43562d7c-d1a8-4cea-98e0-ad791320729b">
                 <Frame point="1728 1920"/>
+            </Index>
+			 <Index name="7700c1f2-a33a-11ea-bb37-0242ac130002">
+                <Frame point="1056 1920"/>
             </Index>
         </Group>
     </Resource>

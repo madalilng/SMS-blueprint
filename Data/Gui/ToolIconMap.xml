@@ -4,9 +4,6 @@
 			<Index name="5cc12f03-275e-4c8e-b013-79fc0f913e1b">
                 <Frame point="0 0"/>
             </Index>
-            <Index name="7700c1f2-a33a-11ea-bb37-0242ac130002">
-                <Frame point="0 0"/>
-            </Index>
 			<Index name="8c7efc37-cd7c-4262-976e-39585f8527bf">
                 <Frame point="80 0"/>
             </Index>
@@ -21,6 +18,9 @@
             </Index>
 			<Index name="fdb8b8be-96e7-4de0-85c7-d2f42e4f33ce">
                 <Frame point="80 80"/>
+            </Index>
+			<Index name="7700c1f2-a33a-11ea-bb37-0242ac130002">
+                <Frame point="0 0"/>
             </Index>
 		</Group>
     </Resource>

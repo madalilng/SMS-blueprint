@@ -7,15 +7,6 @@
       "script": { "file": "$GAME_DATA/Scripts/game/Lift.lua", "class": "Lift" }
     },
     {
-      "uuid": "7700c1f2-a33a-11ea-bb37-0242ac130002",
-      "previewRenderable": "$GAME_DATA/Character/Char_Tools/char_lift_preview.rend",
-      "previewRotation": [1, 0, 0, 0, 0, -1, 0, 1, 0],
-      "script": {
-        "file": "$SURVIVAL_DATA/Scripts/game/ren/tools/PrinterTool.lua",
-        "class": "PrinterTool"
-      }
-    },
-    {
       "uuid": "ed185725-ea12-43fc-9cd7-4295d0dbf88b",
       "previewRenderable": "$GAME_DATA/Character/Char_Tools/char_sledgehammer_preview.rend",
       "previewRotation": [-1, 0, 0, 0, 0, 1, 0, 1, 0],
@@ -52,6 +43,15 @@
       "script": {
         "file": "$GAME_DATA/Scripts/game/Spudgun.lua",
         "class": "Spudgun"
+      }
+    },
+	{
+      "uuid": "7700c1f2-a33a-11ea-bb37-0242ac130002",
+      "previewRenderable": "$GAME_DATA/Character/Char_Tools/char_lift_preview.rend",
+      "previewRotation": [1, 0, 0, 0, 0, -1, 0, 1, 0],
+      "script": {
+        "file": "$SURVIVAL_DATA/Scripts/game/ren/tools/PrinterTool.lua",
+        "class": "PrinterTool"
       }
     }
   ]

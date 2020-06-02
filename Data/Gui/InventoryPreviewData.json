@@ -4,15 +4,6 @@
     "preview_scale": 1.61,
     "preview_offset": { "x": 0.0, "y": 0.01, "z": 0.1 }
   },
-  // Printer Tool {
-  "7700c1f2-a33a-11ea-bb37-0242ac130002": {
-    "preview_scale": 1.61,
-    "preview_offset": {
-      "x": 0.0,
-      "y": 0.01,
-      "z": 0.1
-    }
-  },
   // Sledgehammer
   "ed185725-ea12-43fc-9cd7-4295d0dbf88b": {
     "preview_scale": 1.43,
@@ -37,5 +28,14 @@
   "3384010e-bc1c-42bb-83ef-dbc78a1f9636": {
     "preview_scale": 1.42,
     "preview_offset": { "x": 0.0, "y": 0.02, "z": 0.0 }
-  }
+  },
+   // Printer Tool
+  "7700c1f2-a33a-11ea-bb37-0242ac130002": {
+    "preview_scale": 1.61,
+    "preview_offset": {
+      "x": 0.0,
+      "y": 0.01,
+      "z": 0.1
+    }
+  },
 }
