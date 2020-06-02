@@ -13,8 +13,12 @@ by ren (github.com/madalilng/)
 ### Installation
 
 > BACKUP YOUR SAVEFILE
-> BACKUP DATA AND SURVIVAL FOLDER
 
+to backup your savefile hit ctrl+r (windows)
+type `%appdata%/Axolot Games` on run command got o `scrap mechanic/user/user_xxxxxx/save/survival/`
+make a copy of that save folder
+
+> BACKUP DATA AND SURVIVAL FOLDER
 
 
 In your Scrap Mechanic base folder
@@ -32,6 +36,14 @@ added new tool **PrinterTool**
 added new object **Custom Container** with 200 slots
 
 added new character command /blueprint <name_of_blueprint>
+
+added 2 new items in crafter ( the actual tool & container )
+
+### ToDo
+- [ ] Optimize the code
+- [ ] Custom Icon for tool
+- [ ] Custom Icon for Container
+- [ ] Fix bugs some
 
 ### Usage
 
