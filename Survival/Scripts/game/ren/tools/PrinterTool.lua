@@ -23,7 +23,6 @@ function PrinterTool.sv_saveBlueprints( self )
 end
 
 function PrinterTool.client_onCreate( self )
-	self.gui = nil
 	self.blueprintsFiles = sm.json.open( "$SURVIVAL_DATA/Scripts/game/ren/blueprints.json" )
 	self.blueprintSelectedIndex = 1
     self.effect = sm.effect.createEffect( "ShapeRenderable" )
@@ -70,10 +69,9 @@ function PrinterTool.client_onEquippedUpdate( self, primaryState, secondaryState
 		
 		self:client_interact( primaryState, secondaryState, raycastResult )
 
-        if valid and #self.selectedBodies > 0 then
+		if valid and #self.selectedBodies > 0 then
 			self.effect:setPosition( worldPos )
 			self.effect:setRotation( sm.quat.angleAxis( math.pi*0.5, sm.vec3.new( 1, 0, 0 ) ) )
-
 			if not self.effect:isPlaying() then
 				self.effect:start()
 			end
@@ -84,8 +82,8 @@ function PrinterTool.client_onEquippedUpdate( self, primaryState, secondaryState
 				self.effect:setParameter( "valid", false )
 			else
 				self.effect:setParameter( "valid", true )
-				if primaryState == sm.tool.interactState.start then
-					self.network:sendToServer( "sv_n_put_printer", { pos = worldPos } )
+				if primaryState == sm.tool.interactState.start  then
+					self.network:sendToServer( "sv_n_put_printer", { pos = worldPos, rot = sm.quat.angleAxis( math.pi*0.5, sm.vec3.new( 1, 0, 0 ) ) } )
 				end
 			end
 
@@ -115,13 +113,8 @@ function PrinterTool.sv_n_put_printer( self, params, player )
 
 		local usedShapes = {}
 		usedShapes = getCreationsShapeCount( obj )
-		for _, body in ipairs( self.targetBody:getCreationBodies() ) do
-			for _, shape in ipairs( body:getShapes() ) do
-				shape:destroyShape()
-			end
-		end
 		local rot = math.random( 0, 3 ) * math.pi * 0.5
-		local shape = sm.shape.createPart( obj_ren_container, params.pos, sm.quat.angleAxis( rot, sm.vec3.new( 0, 0, 1 ) ) * sm.quat.new( 0.70710678, 0, 0, 0.70710678 ) , false, false )
+		local shape = sm.shape.createPart( obj_ren_container, params.pos, params.rot , true, true )
 		local container = shape:getInteractable():getContainer()
 		local index = 0
 		sm.container.beginTransaction()
@@ -130,11 +123,23 @@ function PrinterTool.sv_n_put_printer( self, params, player )
 			index = index + 1
 		end
 		sm.container.endTransaction()
-		sm.json.save( obj[1], "$SURVIVAL_DATA/Scripts/game/ren/blueprints/"..self.blueprints.name..".blueprint" )
-		if contains(self.blueprintsFiles, self.blueprints.name) ~= true then
-			self.blueprintsFiles[#self.blueprintsFiles+1] = self.blueprints.name
-			sm.json.save( self.blueprintsFiles, "$SURVIVAL_DATA/Scripts/game/ren/blueprints.json" )
+
+		if container then
+
+			for _, body in ipairs( self.targetBody:getCreationBodies() ) do
+				for _, shape in ipairs( body:getShapes() ) do
+					shape:destroyShape()
+				end
+			end
+
+			sm.json.save( obj[1], "$SURVIVAL_DATA/Scripts/game/ren/blueprints/"..self.blueprints.name..".blueprint" )
+			if contains(self.blueprintsFiles, self.blueprints.name) ~= true then
+				self.blueprintsFiles[#self.blueprintsFiles+1] = self.blueprints.name
+				sm.json.save( self.blueprintsFiles, "$SURVIVAL_DATA/Scripts/game/ren/blueprints.json" )
+			end
+
 		end
+
 		self.blueprints.name = nil
 		self:sv_saveBlueprints()
 	end
@@ -400,13 +405,6 @@ function PrinterTool.client_onUnequip( self )
 	self.effect:stop()
 	sm.visualization.setCreationVisible( false )
 	sm.visualization.setLiftVisible( false )
-	if self.gui then
-		
-		self.gui = nil
-		-- self.gui:destroy()
-	end
-
-	
 	sm.visualization.setCreationVisible( false )
 end
 
