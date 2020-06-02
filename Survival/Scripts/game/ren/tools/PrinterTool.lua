@@ -63,19 +63,32 @@ function PrinterTool.client_onEquippedUpdate( self, primaryState, secondaryState
 				self.effect:stop()
 			end
 			return false, false
-        end
+		end
+		
         local valid, worldPos, worldNormal = self:constructionRayCast()
-        local success, raycastResult = sm.localPlayer.getRaycast( 7.5 )
+		local success, raycastResult = sm.localPlayer.getRaycast( 7.5 )
+		
 		self:client_interact( primaryState, secondaryState, raycastResult )
+
         if valid and #self.selectedBodies > 0 then
 			self.effect:setPosition( worldPos )
 			self.effect:setRotation( sm.quat.angleAxis( math.pi*0.5, sm.vec3.new( 1, 0, 0 ) ) )
+
 			if not self.effect:isPlaying() then
 				self.effect:start()
 			end
-			if primaryState == sm.tool.interactState.start then
-				self.network:sendToServer( "sv_n_put_printer", { pos = worldPos } )
+
+			if worldNormal.z < 0.97236992 then
+				self.effect:setParameter( "valid", false )
+			elseif sm.physics.sphereContactCount( worldPos, 0.375, false, true ) > 0 then
+				self.effect:setParameter( "valid", false )
+			else
+				self.effect:setParameter( "valid", true )
+				if primaryState == sm.tool.interactState.start then
+					self.network:sendToServer( "sv_n_put_printer", { pos = worldPos } )
+				end
 			end
+
 			return true, false
 		else
 			self.effect:stop()
@@ -131,7 +144,6 @@ function PrinterTool.cl_no_blueprintQ( self )
 	sm.gui.displayAlertText( "Please set blueprint using Q", 10 )
 end
 
-
 function PrinterTool.sv_n_spawn_blueprint( self, params, player )
 	if self.blueprintsFiles[self.blueprintSelectedIndex] == "" then
 		self.network:sendToClients( "cl_no_blueprintQ" )
@@ -165,7 +177,7 @@ function PrinterTool.sv_n_spawn_blueprint( self, params, player )
 		end
 
 		if buildable == true then
-			sm.creation.importFromFile( player.character:getWorld(), "$SURVIVAL_DATA/Scripts/game/ren/blueprints/"..self.blueprintsFiles[self.blueprintSelectedIndex]..".blueprint", params.container.worldPosition )
+			self.blueprintBodies = sm.creation.importFromFile( player.character:getWorld(), "$SURVIVAL_DATA/Scripts/game/ren/blueprints/"..self.blueprintsFiles[self.blueprintSelectedIndex]..".blueprint", params.container.worldPosition )
 			params.container:destroyShape()
 			self.blueprints.name = nil
 			self:sv_saveBlueprints()
@@ -179,21 +191,18 @@ function PrinterTool.constructionRayCast( self )
 
 	local valid, result = sm.localPlayer.getRaycast( 7.5 )
 	if valid then
-		if result.type == "terrainSurface" then
-			local groundPointOffset = -( sm.construction.constants.subdivideRatio_2 - 0.04 + sm.construction.constants.shapeSpacing + 0.005 )
-			local pointLocal = result.pointLocal + result.normalLocal * groundPointOffset
+		local groundPointOffset = -( sm.construction.constants.subdivideRatio_2 - 0.04 + sm.construction.constants.shapeSpacing + 0.005 )
+		local pointLocal = result.pointLocal + result.normalLocal * groundPointOffset
 
 			-- Compute grid pos
-			local size = sm.vec3.new( 3, 3, 1 )
-			local size_2 = sm.vec3.new( 1, 1, 0 )
-			local a = pointLocal * sm.construction.constants.subdivisions
-			local gridPos = sm.vec3.new( math.floor( a.x ), math.floor( a.y ), a.z ) - size_2
+		local size = sm.vec3.new( 3, 3, 1 )
+		local size_2 = sm.vec3.new( 1, 1, 0 )
+		local a = pointLocal * sm.construction.constants.subdivisions
+		local gridPos = sm.vec3.new( math.floor( a.x ), math.floor( a.y ), a.z ) - size_2
 
 			-- Compute world pos
-			local worldPos = gridPos * sm.construction.constants.subdivideRatio + ( size * sm.construction.constants.subdivideRatio ) * 0.5
-
-			return valid, worldPos, result.normalWorld
-		end
+		local worldPos = gridPos * sm.construction.constants.subdivideRatio + ( size * sm.construction.constants.subdivideRatio ) * 0.5
+		return valid, worldPos, result.normalWorld
 	end
 	return false
 end
@@ -225,6 +234,7 @@ function PrinterTool.client_interact( self, primaryState, secondaryState, raycas
 	if secondaryState ~= sm.tool.interactState.null then
 		self.hoverBodies = {}
 		self.selectedBodies = {}
+		self.blueprintBodies = {}
 		self.selectedContainer = nil
 		sm.tool.forceTool( nil )
 		self.forced = false
@@ -241,8 +251,8 @@ function PrinterTool.client_interact( self, primaryState, secondaryState, raycas
 				if shape.shapeUuid == obj_ren_container then
 					self.selectedContainer = shape
 					sm.gui.setInteractionText( "", sm.gui.getKeyBinding( "Create" ), "Extract Blueprint : "..self.blueprintsFiles[self.blueprintSelectedIndex] )
-					local keyBindingText =  sm.gui.getKeyBinding( "Use" )
-					sm.gui.setInteractionText( "", keyBindingText, "Press Q to toggle through Blueprints" )
+					local keyBindingText =  sm.gui.getKeyBinding( "NextCreateRotation" )
+					sm.gui.setInteractionText( "", keyBindingText, "toggle through Blueprints" )
 					break
 				end
 			end
@@ -320,6 +330,11 @@ function PrinterTool.client_interact( self, primaryState, secondaryState, raycas
 			self.selectedBodies = self.hoverBodies
 			self.hoverBodies = {}
 		end
+		if #self.blueprintBodies > 0 and isPlaceable then
+			local placeLiftParams = { player = sm.localPlayer.getPlayer(), selectedBodies = self.blueprintBodies, liftPos = self.liftPos, liftLevel = liftLevel, rotationIndex = self.rotationIndex }
+			self.network:sendToServer( "server_placeLift", placeLiftParams )
+			self.blueprintBodies = {}
+		end
 		sm.tool.forceTool( nil )
 		self.forced = false
 	end
@@ -329,11 +344,11 @@ function PrinterTool.client_interact( self, primaryState, secondaryState, raycas
 	sm.visualization.setLiftValid( isPlaceable )
 
 	if raycastResult.valid then
-		local showLift = #self.hoverBodies == 0
+		local showLift = #self.blueprintBodies > 0
+		sm.visualization.setLiftPosition( self.liftPos * 0.25 )
+		sm.visualization.setLiftLevel( liftLevel )
+		sm.visualization.setLiftVisible( showLift )
 		if #self.blueprintBodies > 0 then
-			sm.visualization.setLiftPosition( self.liftPos * 0.25 )
-			sm.visualization.setLiftLevel( liftLevel )
-			sm.visualization.setLiftVisible( showLift )
 			sm.visualization.setCreationBodies( self.blueprintBodies )
 			sm.visualization.setCreationFreePlacement( true )
 			sm.visualization.setCreationFreePlacementPosition( self.liftPos * 0.25 + sm.vec3.new(0,0,0.5) + sm.vec3.new(0,0,0.25) * liftLevel )
@@ -454,4 +469,9 @@ function getContainerContents( container )
 	end
 
 	return content
+end
+
+
+function PrinterTool.server_placeLift( self, placeLiftParams )
+	sm.player.placeLift( placeLiftParams.player, placeLiftParams.selectedBodies, placeLiftParams.liftPos, placeLiftParams.liftLevel, placeLiftParams.rotationIndex )
 end
