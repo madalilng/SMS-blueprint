@@ -11,7 +11,7 @@
         "z": 3
       },
       "chest": {
-        "slots": 200
+        "slots": 100
       },
       "rotationSet": "PropY",
       "sticky": "-Y",

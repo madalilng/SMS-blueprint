@@ -153,7 +153,7 @@ function PrinterTool.sv_n_spawn_blueprint( self, params, player )
 	if self.blueprintsFiles[self.blueprintSelectedIndex] == "" then
 		self.network:sendToClients( "cl_no_blueprintQ" )
 	else
-		local containerContent = getContainerContents(params.container:getInteractable():getContainer())
+		local container = params.container:getInteractable():getContainer()
 		local obj = {}
 		local usedShapes = {}
 		local buildable = true
@@ -161,26 +161,22 @@ function PrinterTool.sv_n_spawn_blueprint( self, params, player )
 
 		obj[#obj+1] = sm.json.open( "$SURVIVAL_DATA/Scripts/game/ren/blueprints/".. self.blueprintsFiles[self.blueprintSelectedIndex] ..".blueprint" )
 		usedShapes = getCreationsShapeCount( obj )
-
 		for shapeID in pairs(usedShapes) do
 			local uid = sm.uuid.new( shapeID )
 			local item_name = sm.shape.getShapeTitle( uid )
-
-			if containerContent[shapeID] then
-				if usedShapes[shapeID] > containerContent[shapeID] then
-					local qty = usedShapes[shapeID] - containerContent[shapeID]
+			local container_item = sm.container.totalQuantity(container, uid)
+			-- print(item_name.." x ".. container_item) 
+			-- print(sm.container.canSpend( container , uid , usedShapes[shapeID] ) )
+			if usedShapes[shapeID] > container_item then
+					local qty = usedShapes[shapeID] - container_item
 					if qty > 0 then
-						print("Could not consume enough of ", item_name, " Needed ", qty, " more")
-						sm.gui.chatMessage("#7eddde Need "..item_name .. " x " .. qty)
+						-- print("Could not consume enough of ", item_name, " Needed ", qty, " more")
+						sm.gui.chatMessage("#00ff00"..item_name .. " x " .. qty)
 						buildable = false
 					end
 				end
-			else
-				sm.gui.chatMessage("#7eddde Need "..item_name .. " x " .. usedShapes[shapeID])
-				buildable = false
-			end
 		end
-
+		sm.gui.chatMessage("#00ff00 --------------------------------------------")
 		if buildable == true then
 			self.blueprintBodies = sm.creation.importFromFile( player.character:getWorld(), "$SURVIVAL_DATA/Scripts/game/ren/blueprints/"..self.blueprintsFiles[self.blueprintSelectedIndex]..".blueprint", params.container.worldPosition )
 			params.container:destroyShape()
@@ -453,22 +449,6 @@ function getCreationsShapeCount( creations )
 	
 	return usedShapes
 end
-
-function getContainerContents( container )
-	local content = {}
-	for i=0,container:getSize()-1 do 
-		local item = container:getItem(i)
-		if item.uuid ~= sm.uuid.new() then
-			if content[ tostring( item.uuid ) ] == nil then
-				content[ tostring( item.uuid ) ] = 0
-			end
-			content[ tostring( item.uuid ) ] = content[ tostring( item.uuid ) ] + item.quantity
-		end
-	end
-
-	return content
-end
-
 
 function PrinterTool.server_placeLift( self, placeLiftParams )
 	sm.player.placeLift( placeLiftParams.player, placeLiftParams.selectedBodies, placeLiftParams.liftPos, placeLiftParams.liftLevel, placeLiftParams.rotationIndex )
