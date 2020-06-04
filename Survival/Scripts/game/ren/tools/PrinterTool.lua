@@ -109,22 +109,23 @@ function PrinterTool.sv_n_put_printer( self, params, player )
 		self.network:sendToClients( "cl_no_blueprint" )
 	else
 		local obj = {}
-		obj[#obj+1] = sm.json.parseJsonString( sm.creation.exportToString( self.targetBody, true ) )
-
 		local usedShapes = {}
+
+		obj[#obj+1] = sm.json.parseJsonString( sm.creation.exportToString( self.targetBody, true ) )
 		usedShapes = getCreationsShapeCount( obj )
-		local rot = math.random( 0, 3 ) * math.pi * 0.5
+
 		local shape = sm.shape.createPart( obj_ren_container, params.pos, params.rot , true, true )
 		local container = shape:getInteractable():getContainer()
-		local index = 0
-		sm.container.beginTransaction()
-		for shape in pairs( usedShapes ) do
-			sm.container.collect( container, sm.uuid.new( shape ), usedShapes[shape], false )
-			index = index + 1
-		end
-		sm.container.endTransaction()
 
 		if container then
+			
+			sm.container.beginTransaction()
+			
+			for shape in pairs( usedShapes ) do
+				sm.container.collect( container, sm.uuid.new( shape ), usedShapes[shape], false )
+			end
+			
+			sm.container.endTransaction()
 
 			for _, body in ipairs( self.targetBody:getCreationBodies() ) do
 				for _, shape in ipairs( body:getShapes() ) do
