@@ -4,7 +4,7 @@
       "uuid": "d4e6c84c-a493-44b1-81aa-4f4741ea3ee0",
       "name": "obj_ren_container",
       "renderable": "$SURVIVAL_DATA/Objects/Renderable/interactive/obj_interactive_smallchest.rend",
-      "color": "000000",
+      "color": "770000",
       "box": {
         "x": 3,
         "y": 2,
