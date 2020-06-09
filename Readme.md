@@ -40,10 +40,10 @@ added new character command /blueprint <name_of_blueprint>
 added 2 new items in crafter ( the actual tool & container )
 
 ### ToDo
-- [ ] Optimize the code
-- [ ] Custom Icon for tool
-- [ ] Custom Icon for Container
-- [ ] Fix bugs some
+- [x] Optimize the code
+- [x] Custom Icon for tool
+- [x] Custom Icon for Container
+- [ ] Fix bugs some XD
 
 ### Usage
 
