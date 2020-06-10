@@ -66,15 +66,14 @@ function PrinterTool.client_onEquippedUpdate( self, primaryState, secondaryState
 		
         local valid, worldPos, worldNormal = self:constructionRayCast()
 		local success, raycastResult = sm.localPlayer.getRaycast( 7.5 )
-		
+		if not valid and #self.selectedBodies > 0  then
+			sm.gui.setInteractionText( "", sm.gui.getKeyBinding( "Create" ), "Invalid Surface" )
+		end
 		self:client_interact( primaryState, secondaryState, raycastResult )
 
 		if valid and #self.selectedBodies > 0 then
 			self.effect:setPosition( worldPos )
 			self.effect:setRotation( sm.quat.angleAxis( math.pi*0.5, sm.vec3.new( 1, 0, 0 ) ) )
-			if not self.effect:isPlaying() then
-				self.effect:start()
-			end
 
 			if worldNormal.z < 0.97236992 then
 				self.effect:setParameter( "valid", false )
@@ -87,12 +86,17 @@ function PrinterTool.client_onEquippedUpdate( self, primaryState, secondaryState
 				end
 			end
 
+			if not self.effect:isPlaying() then
+				self.effect:start()
+			end
+
 			return true, false
 		else
 			self.effect:stop()
 			return false, false
         end
 	end
+	
 	return true, false
 end
 
@@ -193,6 +197,7 @@ function PrinterTool.constructionRayCast( self )
 
 	local valid, result = sm.localPlayer.getRaycast( 7.5 )
 	if valid then
+		if result.type == "terrainSurface" then
 		local groundPointOffset = -( sm.construction.constants.subdivideRatio_2 - 0.04 + sm.construction.constants.shapeSpacing + 0.005 )
 		local pointLocal = result.pointLocal + result.normalLocal * groundPointOffset
 
@@ -205,6 +210,7 @@ function PrinterTool.constructionRayCast( self )
 			-- Compute world pos
 		local worldPos = gridPos * sm.construction.constants.subdivideRatio + ( size * sm.construction.constants.subdivideRatio ) * 0.5
 		return valid, worldPos, result.normalWorld
+		end
 	end
 	return false
 end
