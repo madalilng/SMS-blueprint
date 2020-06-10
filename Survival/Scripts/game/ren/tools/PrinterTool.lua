@@ -66,9 +66,11 @@ function PrinterTool.client_onEquippedUpdate( self, primaryState, secondaryState
 		
         local valid, worldPos, worldNormal = self:constructionRayCast()
 		local success, raycastResult = sm.localPlayer.getRaycast( 7.5 )
+
 		if not valid and #self.selectedBodies > 0  then
 			sm.gui.setInteractionText( "", sm.gui.getKeyBinding( "Create" ), "Invalid Surface" )
 		end
+
 		self:client_interact( primaryState, secondaryState, raycastResult )
 
 		if valid and #self.selectedBodies > 0 then
@@ -118,11 +120,11 @@ function PrinterTool.sv_n_put_printer( self, params, player )
 		obj[#obj+1] = sm.json.parseJsonString( sm.creation.exportToString( self.targetBody, true ) )
 		usedShapes = getCreationsShapeCount( obj )
 
-		local shape = sm.shape.createPart( obj_ren_container, params.pos, params.rot , true, true )
-		local container = shape:getInteractable():getContainer()
+		local shape = sm.shape.createPart( obj_ren_container, params.pos, params.rot , false, false )
+		
 
-		if container then
-			
+		if shape then
+			local container = shape:getInteractable():getContainer()
 			sm.container.beginTransaction()
 			
 			for shape in pairs( usedShapes ) do
